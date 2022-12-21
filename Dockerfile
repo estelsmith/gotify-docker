@@ -11,7 +11,7 @@ WORKDIR /build
 RUN make download-tools && go get -d
 
 WORKDIR /build/ui
-RUN yarn install
+RUN yarn install --network-timeout=$(( 10 * 60 * 1000 ))
 # Starting with Node 17, yarn won't build the UI without these NODE_OPTIONS
 # @see https://github.com/nodejs/node/blob/main/doc/changelogs/CHANGELOG_V17.md#openssl-30
 RUN NODE_OPTIONS="--openssl-legacy-provider" yarn build
