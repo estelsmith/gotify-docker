@@ -9,7 +9,7 @@ pipeline:
             - registry_username
             - registry_password
         commands:
-            - apk --no-cache add docker-cli
+            - apk --no-cache add docker-cli docker-cli-buildx
             - docker login -u $${REGISTRY_USERNAME} -p $${REGISTRY_PASSWORD} registry.home.estelsmith.com
             - >
                 docker buildx build .
