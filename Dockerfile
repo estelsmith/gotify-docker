@@ -24,15 +24,15 @@ RUN export BUILDDATE=$(date "+%F-%T")\
 
 # ---
 
-FROM registry.home.estelsmith.com/alpine:3.17
-
-RUN adduser -S -s /sbin/nologin -h /app -H -D appuser
-
-RUN mkdir -p /app/data && chown appuser /app/data
-COPY --from=builder /build/gotify-server /app/gotify-server
-COPY config.yml /app/config.yml
-
-USER appuser
-WORKDIR /app
-EXPOSE 8080
-ENTRYPOINT ["/app/gotify-server"]
+#FROM registry.home.estelsmith.com/alpine:3.17
+#
+#RUN adduser -S -s /sbin/nologin -h /app -H -D appuser
+#
+#RUN mkdir -p /app/data && chown appuser /app/data
+#COPY --from=builder /build/gotify-server /app/gotify-server
+#COPY config.yml /app/config.yml
+#
+#USER appuser
+#WORKDIR /app
+#EXPOSE 8080
+#ENTRYPOINT ["/app/gotify-server"]
