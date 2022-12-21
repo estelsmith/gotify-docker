@@ -1,0 +1,14 @@
+server:
+    listenaddr: ""
+    port: 8080
+
+database:
+    dialect: sqlite3
+    connection: data/gotify.db
+
+defaultuser:
+    name: admin
+    pass: admin
+
+uploadedimagesdir: data/images
+pluginsdir: data/plugins
