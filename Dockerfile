@@ -8,7 +8,7 @@ RUN echo Building with $(go version), node $(node --version), yarn $(yarn --vers
 RUN git clone --branch "v${GOTIFY_VERSION}" --single-branch --depth 1 https://github.com/gotify/server.git build
 
 WORKDIR /build
-RUN make download-tools && go get -d && go run hack/packr/packr.go
+RUN make download-tools && go get -d
 
 WORKDIR /build/ui
 RUN yarn install
@@ -17,6 +17,7 @@ RUN yarn install
 RUN NODE_OPTIONS="--openssl-legacy-provider" yarn build
 
 WORKDIR /build
+RUN go run hack/packr/packr.go
 RUN export BUILDDATE=$(date "+%F-%T")\
     && export COMMIT=$(git rev-parse --verify HEAD)\
     && export LD_FLAGS="-w -s -X main.Version=${GOTIFY_VERSION} -X main.BuildDate=${BUILDDATE} -X main.Commit=${COMMIT} -X main.Mode=prod"\
@@ -24,15 +25,15 @@ RUN export BUILDDATE=$(date "+%F-%T")\
 
 # ---
 
-#FROM registry.home.estelsmith.com/alpine:3.17
-#
-#RUN adduser -S -s /sbin/nologin -h /app -H -D appuser
-#
-#RUN mkdir -p /app/data && chown appuser /app/data
-#COPY --from=builder /build/gotify-server /app/gotify-server
-#COPY config.yml /app/config.yml
-#
-#USER appuser
-#WORKDIR /app
-#EXPOSE 8080
-#ENTRYPOINT ["/app/gotify-server"]
+FROM registry.home.estelsmith.com/alpine:3.17
+
+RUN adduser -S -s /sbin/nologin -h /app -H -D appuser
+
+RUN mkdir -p /app/data && chown appuser /app/data
+COPY --from=builder /build/gotify-server /app/gotify-server
+COPY config.yml /app/config.yml
+
+USER appuser
+WORKDIR /app
+EXPOSE 8080
+ENTRYPOINT ["/app/gotify-server"]
