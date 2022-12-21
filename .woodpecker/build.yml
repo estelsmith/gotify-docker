@@ -10,7 +10,11 @@ pipeline:
             - registry_password
         commands:
             - apk --no-cache add docker-cli docker-cli-buildx
-            - docker login -u $${REGISTRY_USERNAME} -p $${REGISTRY_PASSWORD} registry.home.estelsmith.com
+            - >
+                docker login
+                -u $${REGISTRY_USERNAME}
+                -p $${REGISTRY_PASSWORD}
+                registry.home.estelsmith.com
             - >
                 docker buildx build .
                 -t registry.home.estelsmith.com/gotify-docker:latest
