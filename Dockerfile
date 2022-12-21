@@ -16,6 +16,7 @@ RUN yarn install
 # @see https://github.com/nodejs/node/blob/main/doc/changelogs/CHANGELOG_V17.md#openssl-30
 RUN NODE_OPTIONS="--openssl-legacy-provider" yarn build
 
+WORKDIR /build
 RUN export BUILDDATE=$(date "+%F-%T")\
     && export COMMIT=$(git rev-parse --verify HEAD)\
     && export LD_FLAGS="-w -s -X main.Version=${GOTIFY_VERSION} -X main.BuildDate=${BUILDDATE} -X main.Commit=${COMMIT} -X main.Mode=prod"\

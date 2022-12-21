@@ -1,0 +1,18 @@
+branches: main
+pipeline:
+    build:
+        image: woodpeckerci/plugin-docker-buildx
+#        image: plugins/docker
+        privileged: true
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+        settings:
+            repo: registry.home.estelsmith.com/gotify-docker
+            tags:
+                - latest
+                - 0.0.${CI_BUILD_NUMBER}
+            registry: registry.home.estelsmith.com
+            username:
+                from_secret: registry_username
+            password:
+                from_secret: registry_password
