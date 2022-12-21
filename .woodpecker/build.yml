@@ -1,4 +1,7 @@
 branches: main
+matrix:
+    GOTIFY_VERSION:
+        - 2.2.0
 pipeline:
     build:
         image: registry.home.estelsmith.com/alpine:3.17
@@ -17,6 +20,7 @@ pipeline:
                 registry.home.estelsmith.com
             - >
                 docker buildx build .
+                --build-arg GOTIFY_VERSION="${GOTIFY_VERSION}"
                 -t registry.home.estelsmith.com/gotify-docker:latest
-                -t registry.home.estelsmith.com/gotify-docker:0.0.${CI_BUILD_NUMBER}
+                -t registry.home.estelsmith.com/gotify-docker:${GOTIFY_VERSION}-${CI_BUILD_NUMBER}
                 --output type=registry
