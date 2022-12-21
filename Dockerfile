@@ -28,7 +28,7 @@ FROM registry.home.estelsmith.com/alpine:3.17
 
 RUN adduser -S -s /sbin/nologin -h /app -H -D appuser
 
-RUN mkdir /app
+RUN mkdir /app && mkdir /app/data && chown appuser:appuser /app/data
 COPY --from=builder /build/gotify-server /app/gotify-server
 COPY config.yml /app/config.yml
 
