@@ -4,7 +4,7 @@ ARG GOTIFY_VERSION="2.2.0"
 ENV GOTIFY_VERSION=${GOTIFY_VERSION}
 
 RUN apk --no-cache add make bash git go nodejs yarn
-RUN echo Building with $(go --version), node $(node --version), yarn $(yarn --version)
+RUN echo Building with $(go version), node $(node --version), yarn $(yarn --version)
 RUN git clone --branch "v${GOTIFY_VERSION}" --single-branch --depth 1 https://github.com/gotify/server.git build
 
 WORKDIR /build
