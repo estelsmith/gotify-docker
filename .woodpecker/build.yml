@@ -23,6 +23,6 @@ pipeline:
             - >
                 docker buildx build .
                 --build-arg GOTIFY_VERSION="${GOTIFY_VERSION}"
-                -t registry.home.estelsmith.com/gotify-docker:latest
+                -t registry.home.estelsmith.com/gotify-docker:${GOTIFY_VERSION}-latest
                 -t registry.home.estelsmith.com/gotify-docker:${GOTIFY_VERSION}-${CI_BUILD_NUMBER}
                 --output type=registry
