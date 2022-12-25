@@ -1,0 +1,5 @@
+app_root_dir: "/srv/gotify"
+app_system_user: "gotify"
+
+app_image: "registry.home.estelsmith.com/gotify-docker:2.2.0-latest"
+app_hostname: "gotify.home.estelsmith.com"

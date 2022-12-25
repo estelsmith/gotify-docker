@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+    server:
+        image: "{{ app_image }}"
+        labels:
+            traefik.enable: "true"
+            traefik.http.routers.gotify.entryPoints: tls
+            traefik.http.routers.gotify.rule: "Host(`{{ app_hostname }}`)"
+            traefik.http.routers.gotify.tls: "true"
+            traefik.http.services.gotify.loadbalancer.server.port: 8080
+        networks:
+            - traefik
+        restart: unless-stopped
+        user: "{{ app_user.uid }}:{{ app_user.group }}"
+        volumes:
+            - ./data:/app/data
+
+networks:
+    traefik:
+        external: true
