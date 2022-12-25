@@ -3,7 +3,6 @@ matrix:
     GOTIFY_VERSION:
         - 2.2.0
         - 2.1.7
-        - 2.0.23
 pipeline:
     build:
         image: registry.home.estelsmith.com/alpine:3.17
